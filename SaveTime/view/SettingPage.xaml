@@ -11,8 +11,15 @@
 
     <Grid>
         <Pivot>
-            <PivotItem Header="PivotItem 0">
-                <Grid/>
+            <PivotItem Header="OneDrive">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Use OneDrive for synchronisation of your data?"/>
+                        <CheckBox />
+                        <TextBlock Text="Login OneDrive"/>
+                        <Button Content="OneDrive" />
+                    </StackPanel>
+                </Grid>
             </PivotItem>
             <PivotItem Header="PivotItem 1">
                 <Grid/>

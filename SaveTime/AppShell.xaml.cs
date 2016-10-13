@@ -50,6 +50,12 @@ namespace SaveTime
                     Symbol = Symbol.Home,
                     Label = "Home",
                     DestinationPage = typeof(view.MainPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = Symbol.Sync,
+                    Label = "Synchronisation",
+                    DestinationPage = typeof(view.SyncPage)
                 }
                 //new NavMenuItem()
                 //{

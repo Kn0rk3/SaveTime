@@ -105,23 +105,16 @@
     </Compile>
     <Compile Include="Controls\NavMenuItem.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
-    <Compile Include="model\Customer.cs" />
-    <Compile Include="model\Filter.cs" />
     <Compile Include="model\IDBObjects.cs" />
     <Compile Include="model\nonpersistent\Backupfile.cs" />
     <Compile Include="model\nonpersistent\DBMigrator.cs" />
     <Compile Include="model\nonpersistent\HelperClass.cs" />
-    <Compile Include="model\Project.cs" />
     <Compile Include="model\Setting.cs" />
-    <Compile Include="model\Timecard.cs" />
-    <Compile Include="model\TimelogSetting.cs" />
-    <Compile Include="model\TimelogTask.cs" />
     <Compile Include="model\timelog\ETimelogOperation.cs" />
     <Compile Include="model\timelog\ETimelogState.cs" />
     <Compile Include="model\timelog\ITimelogWrapper.cs" />
     <Compile Include="model\timelog\TimelogSession.cs" />
     <Compile Include="model\timelog\TimelogWrapper.cs" />
-    <Compile Include="model\WorkTask.cs" />
     <Compile Include="view\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -129,6 +122,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="view\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\SyncPage.xaml.cs">
+      <DependentUpon>SyncPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +162,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="view\SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\SyncPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

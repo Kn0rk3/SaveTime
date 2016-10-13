@@ -36,11 +36,10 @@ namespace SaveTime
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
             //###
             //### local settings
             //###
+            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["connectionString"] = "Filename = " + Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SaveTimeDB.sqlite");
                         
             using (SaveTimeDataContext db = new SaveTimeDataContext(localSettings.Values["connectionString"].ToString()))
