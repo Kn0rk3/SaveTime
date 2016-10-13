@@ -106,15 +106,9 @@
     <Compile Include="Controls\NavMenuItem.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="model\IDBObjects.cs" />
-    <Compile Include="model\nonpersistent\Backupfile.cs" />
-    <Compile Include="model\nonpersistent\DBMigrator.cs" />
-    <Compile Include="model\nonpersistent\HelperClass.cs" />
     <Compile Include="model\Setting.cs" />
     <Compile Include="model\timelog\ETimelogOperation.cs" />
     <Compile Include="model\timelog\ETimelogState.cs" />
-    <Compile Include="model\timelog\ITimelogWrapper.cs" />
-    <Compile Include="model\timelog\TimelogSession.cs" />
-    <Compile Include="model\timelog\TimelogWrapper.cs" />
     <Compile Include="view\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -171,6 +165,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="model\nonpersistent\" />
     <Folder Include="viewmodel\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

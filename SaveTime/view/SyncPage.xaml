@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<Page 
     x:Class="SaveTime.view.SyncPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,11 +10,11 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="You can login to OneDrive and allow this application to use the storage for synchronisation of your data." />
-        <Button x:Name="AuthenticateButton" Content="Button" HorizontalAlignment="Left" Margin="135,127,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="AuthenticateButton" Click="AuthenticateClick" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <ProgressRing x:Name="ProgressRing"
-                      VerticalAlignment="Center"
+                      VerticalAlignment="Bottom"
                       HorizontalAlignment="Center"
                       Width="40"
                       Height="40" />
     </Grid>
-</UserControl>
+</Page>

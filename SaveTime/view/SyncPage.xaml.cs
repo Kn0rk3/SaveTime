@@ -21,7 +21,7 @@ using Microsoft.OneDrive.Sdk.Authentication;
 
 namespace SaveTime.view
 {
-    public sealed partial class SyncPage : UserControl
+    public sealed partial class SyncPage : Page
     {
 
         private readonly string[] _scopes =
@@ -32,16 +32,16 @@ namespace SaveTime.view
         };
 
         private IOneDriveClient oneDriveClient;
-        private string _clientId;
-        private string _returnUrl;
-        private string oneDriveConsumerBaseUrl;
+        private string _clientId = "00000000481BA986 ";
+        private string _returnUrl = "https://login.live.com/oauth20_desktop.srf";
+        private string oneDriveConsumerBaseUrl = "https://api.onedrive.com/v1.0";
         
 
         public SyncPage()
         {
 
             this.InitializeComponent();
-
+            this.Name = "Setting";
         }
 
         private async void AuthenticateClick(object sender, RoutedEventArgs e)
