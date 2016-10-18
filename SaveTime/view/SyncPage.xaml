@@ -15,6 +15,8 @@
                       VerticalAlignment="Bottom"
                       HorizontalAlignment="Center"
                       Width="40"
-                      Height="40" />
+                      Height="40"
+                      IsActive="{Binding IsBusy, Mode=OneWay}"/>
+        <ToggleSwitch x:Name="toggleSwitch" Header="ToggleSwitch" HorizontalAlignment="Left" Margin="55,72,0,0" VerticalAlignment="Top" Toggled="toggleSwitch_Toggled"/>
     </Grid>
 </Page>

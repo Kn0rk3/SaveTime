@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Graph;
 using Microsoft.OneDrive.Sdk.Authentication;
+using SaveTime.viewmodel;
 
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -23,54 +24,57 @@ namespace SaveTime.view
 {
     public sealed partial class SyncPage : Page
     {
-
-        private readonly string[] _scopes =
-        {
-            "onedrive.readonly",
-            "onedrive.appfolder",
-            "wl.signin",
-        };
-
-        private IOneDriveClient oneDriveClient;
-        private string _clientId = "00000000481BA986 ";
-        private string _returnUrl = "https://login.live.com/oauth20_desktop.srf";
-        private string oneDriveConsumerBaseUrl = "https://api.onedrive.com/v1.0";
-        
+        private SyncPageVM syncPageViewModel;
 
         public SyncPage()
         {
-
+            //this.DataContext = SyncPageVM
             this.InitializeComponent();
             this.Name = "Setting";
         }
 
-        private async void AuthenticateClick(object sender, RoutedEventArgs e)
+        private void AuthenticateClick(object sender, RoutedEventArgs e)
         {
-            ShowBusy(true);
-            Exception error = null;
+            syncPageViewModel.AuthenticateOneDrive();
+        }
+        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            syncPageViewModel = new SyncPageVM();
+            this.DataContext = syncPageViewModel;
 
-            try
-            {
-                var msaAuthProvider = new MsaAuthenticationProvider(_clientId,_returnUrl,_scopes, /*CredentialCache*/ null, new CredentialVault(_clientId));
-                await msaAuthProvider.RestoreMostRecentFromCacheOrAuthenticateUserAsync();                
-                oneDriveClient = new OneDriveClient(this.oneDriveConsumerBaseUrl, msaAuthProvider);
-                ShowBusy(false);
-            }
-            catch (Exception ex)
-            {
-                error = ex;
-            }
-
-            if (error != null)
-            {
-                
-                
-            }
+            // Call the base method, to execute the rest of the navigation event
+            base.OnNavigatedTo(e);
         }
 
-        private void ShowBusy(bool isBusy)
+        private void toggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            ProgressRing.IsActive = isBusy;
+
         }
+
+        //        public class RestaurantParams
+        //        {
+        //            public string Name { get; set; }
+        //            public string Text { get; set; }
+        //            // ...
+        //        }
+        //        And then pass it via:
+        //var parameters = new RestaurantParams();
+        //        parameters.Name = "Lorem ipsum";
+        //parameters.Text = "Dolor sit amet.";
+        //// ...
+
+        //Frame.Navigate(typeof(PageTwo), parameters);
+        //On your next page you can now access them via:
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //        {
+        //            base.OnNavigatedTo(e);
+
+        //            var parameters = (RestaurantParams)e.Parameter;
+
+        //            // parameters.Name
+        //            // parameters.Text
+        //            // ...
+        //        }
     }
 }

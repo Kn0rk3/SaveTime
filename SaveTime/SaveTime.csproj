@@ -109,6 +109,7 @@
     <Compile Include="model\Setting.cs" />
     <Compile Include="model\timelog\ETimelogOperation.cs" />
     <Compile Include="model\timelog\ETimelogState.cs" />
+    <Compile Include="viewmodel\SyncPageVM.cs" />
     <Compile Include="view\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -166,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="model\nonpersistent\" />
-    <Folder Include="viewmodel\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

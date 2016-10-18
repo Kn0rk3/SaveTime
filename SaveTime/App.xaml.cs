@@ -24,6 +24,8 @@ namespace SaveTime
     /// </summary>
     sealed partial class App : Application
     {
+        private int appVersion = 1;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -36,18 +38,39 @@ namespace SaveTime
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
+            this.SetLocalAndRoamingSettings();
+            this.MigrateDatabase();
+        }
+
+        private void MigrateDatabase()
+        {
+            using (SaveTimeDataContext db = new SaveTimeDataContext(Windows.Storage.ApplicationData.Current.LocalSettings.Values["connectionString"].ToString()))
+            {
+                db.Database.Migrate();
+
+            }
+        }
+
+        private void SetLocalAndRoamingSettings()
+        {
             //###
             //### local settings
             //###
             Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["connectionString"] = "Filename = " + Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SaveTimeDB.sqlite");
-                        
-            using (SaveTimeDataContext db = new SaveTimeDataContext(localSettings.Values["connectionString"].ToString()))
-            {
-                db.Database.Migrate();
 
-            }
-            
+            //
+            //### roaming settings
+            //
+            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values["askedForOneDriveUsing"] = false;
+            roamingSettings.Values["usingOneDrive"] = false;
+            roamingSettings.Values["createdOneDriveFolderYet"] = false;
+        }
+
+        private void SetRoamingFolder()
+        {
+            Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
         }
 
         /// <summary>
@@ -82,6 +105,7 @@ namespace SaveTime
                     if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                     {
                         //TODO: Load state from previously suspended application
+                        //hier kann erzwungen werden, dass die roaming daten geladen werden
                     }
                 }
 
@@ -90,15 +114,24 @@ namespace SaveTime
 
                 if (shell.AppFrame.Content == null)
                 {
-                    // When the navigation stack isn't restored, navigate to the first page
-                    // suppressing the initial entrance animation.
-                    shell.AppFrame.Navigate(typeof(view.MainPage), e.Arguments, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
+                    if (!(bool)Windows.Storage.ApplicationData.Current.RoamingSettings.Values["askedForOneDriveUsing"])
+                    {
+                        shell.AppFrame.Navigate(typeof(view.SyncPage), e.Arguments, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        // When the navigation stack isn't restored, navigate to the first page
+                        // suppressing the initial entrance animation.
+                        shell.AppFrame.Navigate(typeof(view.MainPage), e.Arguments, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
+                    }
+                    
                 }
 
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
         }
+
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>
@@ -120,6 +153,8 @@ namespace SaveTime
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+            //Hier muss die offene Timecard als File in den Roaming Ordner gespeichert werden
+            //Die Datenbank muss auf OneDrive gespeichert werden
             deferral.Complete();
         }
     }
