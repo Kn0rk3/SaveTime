@@ -12,9 +12,7 @@ namespace SaveTime.viewmodel
     class SyncPageVM : INotifyPropertyChanged
     {
         private IOneDriveClient oneDriveClient { get; set; }
-
         
-
         private static readonly string[] _scopes = { "onedrive.readwrite", "onedrive.appfolder", "wl.offline_access", "wl.signin" };
 
         private string _clientId = "00000000481BA986";
@@ -36,11 +34,25 @@ namespace SaveTime.viewmodel
             }
         }
 
-        public SyncPageVM()
+        private bool isUsingOneDrive;
+        public bool IsUsingOneDrive
         {
+            get
+            {
+                return isUsingOneDrive;
+            }
 
+            set
+            {
+                isUsingOneDrive = value;
+                NotifyPropertyChanged("IsUsingOneDrive");
+            }
         }
 
+        public SyncPageVM()
+        {
+            isUsingOneDrive = (bool) Windows.Storage.ApplicationData.Current.RoamingSettings.Values["usingOneDrive"];
+        }
 
         public async void AuthenticateOneDrive()
         {
@@ -67,6 +79,7 @@ namespace SaveTime.viewmodel
             }
         }
 
+        
 
         #region INotifyPropertyChanged Members
 

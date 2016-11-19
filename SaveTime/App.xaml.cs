@@ -53,19 +53,30 @@ namespace SaveTime
 
         private void SetLocalAndRoamingSettings()
         {
-            //###
-            //### local settings
-            //###
+            //
+            // local settings
+            //
             Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["connectionString"] = "Filename = " + Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SaveTimeDB.sqlite");
 
             //
-            //### roaming settings
+            // roaming settings
             //
             Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["askedForOneDriveUsing"] = false;
-            roamingSettings.Values["usingOneDrive"] = false;
-            roamingSettings.Values["createdOneDriveFolderYet"] = false;
+            if (!roamingSettings.Values.ContainsKey("askedForOneDriveUsing"))
+            {
+                roamingSettings.Values["askedForOneDriveUsing"] = false;
+            }
+
+            if (!roamingSettings.Values.ContainsKey("usingOneDrive"))
+            {
+                roamingSettings.Values["usingOneDrive"] = false;
+            }
+
+            if (!roamingSettings.Values.ContainsKey("createdOneDriveFolderYet"))
+            {
+                roamingSettings.Values["createdOneDriveFolderYet"] = false;
+            }
         }
 
         private void SetRoamingFolder()
