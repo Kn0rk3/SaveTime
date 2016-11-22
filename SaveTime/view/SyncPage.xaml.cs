@@ -30,15 +30,13 @@ namespace SaveTime.view
         {
             //this.DataContext = SyncPageVM
             this.InitializeComponent();
-            this.Name = "Setting";
-
-
+            this.Name = "OneDrive";
         }
 
-        private void AuthenticateClick(object sender, RoutedEventArgs e)
-        {
-            syncPageViewModel.AuthenticateOneDrive();
-        }
+        //private void AuthenticateClick(object sender, RoutedEventArgs e)
+        //{
+        //    syncPageViewModel.AuthenticateOneDrive();
+        //}
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -49,9 +47,10 @@ namespace SaveTime.view
             base.OnNavigatedTo(e);
         }
 
-        private void toggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        private void useOneDriveToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
 
+            syncPageViewModel.AuthenticateOneDrive();
         }
 
         //        public class RestaurantParams

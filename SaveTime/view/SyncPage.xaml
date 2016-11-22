@@ -9,14 +9,13 @@
     >
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="You can login to OneDrive and allow this application to use the storage for synchronisation of your data." />
-        <Button x:Name="AuthenticateButton" Click="AuthenticateClick" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Margin="10,10,0,0" Text="Use OneDrive to sync your data between your devices." HorizontalAlignment="Left" TextWrapping="Wrap" FontWeight="Bold" />
         <ProgressRing x:Name="ProgressRing"
                       VerticalAlignment="Bottom"
                       HorizontalAlignment="Center"
                       Width="40"
                       Height="40"
                       IsActive="{Binding IsBusy, Mode=OneWay}"/>
-        <ToggleSwitch x:Name="toggleSwitch" Header="ToggleSwitch" HorizontalAlignment="Left" Margin="55,72,0,0" VerticalAlignment="Top" Toggled="toggleSwitch_Toggled"/>
+        <ToggleSwitch x:Name="toggleUsingOneDrive" Header="Use OneDrive" IsOn="{Binding IsUsingOneDrive, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Toggled="useOneDriveToggleSwitch_Toggled" Width="94" FontWeight="Bold"/>
     </Grid>
 </Page>

@@ -37,11 +37,25 @@ namespace SaveTime.viewmodel
             }
         }
 
-        public SyncPageVM()
+        private bool isUsingOneDrive;
+        public bool IsUsingOneDrive
         {
+            get
+            {
+                return isUsingOneDrive;
+            }
 
+            set
+            {
+                isUsingOneDrive = value;
+                NotifyPropertyChanged("IsUsingOneDrive");
+            }
         }
 
+        public SyncPageVM()
+        {
+            isUsingOneDrive = (bool) Windows.Storage.ApplicationData.Current.RoamingSettings.Values["usingOneDrive"];
+        }
 
         public async void AuthenticateOneDrive()
         {
