@@ -6,14 +6,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace SaveTime.viewmodel
 {
     class SyncPageVM : INotifyPropertyChanged
     {
         private IOneDriveClient oneDriveClient { get; set; }
+        private AccountSession clientSession;
 
-        
 
         private static readonly string[] _scopes = { "onedrive.readwrite", "onedrive.appfolder", "wl.offline_access", "wl.signin" };
 
@@ -67,6 +68,59 @@ namespace SaveTime.viewmodel
             }
         }
 
+        private async void GetAppRoot()
+        {
+            if (oneDriveClient == null || clientSession?.AccessToken == null)
+            {
+                var dialog = new MessageDialog("Please authenticate first!", "Sorry!");
+                await dialog.ShowAsync();
+                return;
+            }
+
+            await GetFolder(oneDriveClient.Drive.Special.AppRoot, true);
+        }
+
+
+        private async Task GetFolder(IItemRequestBuilder builder, bool childrenToo)
+        {
+            this.IsBusy = true;
+            Exception error = null;
+            IChildrenCollectionPage children = null;
+
+            try
+            {
+                var root = await builder.Request().GetAsync();
+
+                if (childrenToo)
+                {
+                    children = await builder.Children.Request().GetAsync();
+                }
+
+                DisplayHelper.ShowContent(
+                    "SHOW FOLDER ++++++++++++++++++++++",
+                    root,
+                    children,
+                    async message =>
+                    {
+                        var dialog = new MessageDialog(message);
+                        await dialog.ShowAsync();
+                    });
+
+                ShowBusy(false);
+            }
+            catch (Exception ex)
+            {
+                error = ex;
+            }
+
+            if (error != null)
+            {
+                var dialog = new MessageDialog(error.Message, "Error!");
+                await dialog.ShowAsync();
+                ShowBusy(false);
+                return;
+            }
+        }
 
         #region INotifyPropertyChanged Members
 

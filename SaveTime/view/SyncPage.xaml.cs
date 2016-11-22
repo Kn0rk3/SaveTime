@@ -31,6 +31,8 @@ namespace SaveTime.view
             //this.DataContext = SyncPageVM
             this.InitializeComponent();
             this.Name = "Setting";
+
+
         }
 
         private void AuthenticateClick(object sender, RoutedEventArgs e)
