@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SaveTime.model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OneDrive.Sdk;
+using Microsoft.Graph;
 
 namespace SaveTime
 {
@@ -25,6 +27,8 @@ namespace SaveTime
     sealed partial class App : Application
     {
         private int appVersion = 1;
+        public IOneDriveClient OneDriveClient { get; set; }
+        public IAuthenticationProvider AuthProvider { get; set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
