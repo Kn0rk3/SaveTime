@@ -64,6 +64,34 @@ namespace SaveTime.viewmodel
             }
         }
 
+        public void RemoveOneDriveConnection()
+        {
+            this.IsBusy = true;
+            var app = (App)Application.Current;
+            try
+            {
+                var msaAuthProvider = app.AuthProvider as MsaAuthenticationProvider;
+                msaAuthProvider.SignOutAsync();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                app.AuthProvider = null;
+                app.OneDriveClient = null;
+            }
+            this.IsBusy = false;
+        }
+
+        public void InitializeOneDriveConnection()
+        {
+            this.IsBusy = true;
+            InitializeClient();
+            this.IsBusy = false;
+        }
+
         //public async Task AuthenticateOneDrive()
         //{
         //    Exception error = null;
@@ -103,7 +131,7 @@ namespace SaveTime.viewmodel
         //}
 
 
-        public async void InitializeClient(RoutedEventArgs e)
+        private async void InitializeClient()
         {
             var app = (App)Application.Current;
             if (app.OneDriveClient == null)

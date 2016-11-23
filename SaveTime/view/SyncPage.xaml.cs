@@ -49,7 +49,10 @@ namespace SaveTime.view
 
         private void useOneDriveToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            syncPageViewModel.InitializeClient(e);
+            if (toggleUsingOneDrive.IsOn)
+                syncPageViewModel.InitializeOneDriveConnection();
+            else
+                syncPageViewModel.RemoveOneDriveConnection();
         }
 
         //        public class RestaurantParams
